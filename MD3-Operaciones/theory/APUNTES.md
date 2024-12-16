@@ -178,3 +178,161 @@ Sirven para **simplificar** las expresiones.
   // Número aleatorio entre 1 y 10: 3
   // Número aleatorio entre 1 y 10: 7
   ```
+
+## OPERACIONES LÓGICAS
+
+Son expresiones matemáticas que tienen un resultado **booleano** (true or false). Se usan principalmente en las estructuras de control.
+
+### Comparaciones
+
+![tabla_op_comparaciones](./assets/comparaciones.png "Operaciones lógicas de comparación")
+
+Permiten comparar variables o expresiones entre sí o con valores concretos.
+
+```php
+$name = 'Orion';
+if ($name == "Pepe") {
+    echo "Tu nombre es Pepe";
+} else {
+    echo "Tú no eres Pepe, eres $name";
+}
+//"Tú no eres Pepe, eres Orion
+```
+
+> [!WARNING]
+>
+> No se debe de confundir el operador comparación (**==**) con el operador asignación (**=**), ya que ocurren errores a la hora de realizar las comparaciones, ya que **=** asigna el nuevo valor a la variable con la que se intento comparar.
+
+```php
+$name = 'Orion';
+if ($name = "Pepe") {
+    echo "Tu nombre es Pepe";
+} else {
+    echo "Tú no eres Pepe, eres $name";
+}
+//"Tú eres Pepe ($name cambio de valor en el if ya que se utilizo el operador asignación)
+```
+
+Ahora un ejemplo del operador tipo de variable (**===\***);
+
+```PHP
+$value1 = 10;
+$value2 = "10";
+if ($value1 === $value2) {
+    echo "Las variables son idénticas";
+} else {
+    echo "Las variables NO son idénticas";
+}
+// Las variables NO son idénticas (Ya que value1 es un string y value2 un int)
+```
+
+### Operadores lógicos
+
+![op_logicos_tabla](./assets/logicas.png "Tablas de Operadores Lógicos")
+
+Nos permiten convertir expresiones simples en más complejas.
+
+```php
+$var1 = 'true';
+$var2 = 'false';
+if ($var1 && $var2) {
+    echo "Verdadero";
+} else {
+    echo "Falso";
+}
+// Verdadero
+```
+
+## EXPRESIONES REGULARES
+
+Nos permiten definir patrones de coincidencia y aplicarlas a las cadenas de texto para saber si cumplen el patrón e incluso poder realizar transformaciones.
+
+Desde PHP 4.0.2. se cuenta con las expresiones regulares compatibles con C PCRE (Perl Compatible Regular Extensions).
+
+### Funciones de expresiones regulares compatibles con PERL
+
+`preg_match($patron, $cadena[, $matriz_coincidencias [, $modificadores [, $desplazamiento]]])`
+
+Se compara una cadena con un patrón, devuelve **1** (si es _true_) o **0** (si es _false_). Esta primera coincidencia se puede guardar en un argumento `$matriz_coincidencias`, aparte, si se añade el modificador **PREG_OFSET_CAPTURE**, este guarda en `$matriz_coincidencias` la **posición** de la coincidencia encontrada. El argumento `$desplazamiento` es un número que nos indica en que carácter se inicio la búsqueda.
+
+> [!NOTE]
+>
+> Los patrones **SIEMPRE** deben de empezar y cerrarse con el carácter **/**.
+
+```PHP
+$cad1 = "1234567890";
+$cad2 = "abcdefghijk";
+$patron = "/^[[:digit:]]+$/";
+
+if(preg_match($patron, $cad1)){
+    echo "La cadena $cad1 SON solo números" . "\n";
+} else {
+    echo "La cadena $cad1 NO SON solo números" . "\n";
+}
+
+if(preg_match($patron, $cad2)){
+    echo "La cadena $cad2 SON solo números" . "\n";
+} else {
+    echo "La cadena $cad2 NO SON solo números" . "\n";
+}
+// La cadena 1234567890 SON solo números
+// La cadena abcdefghijk NO SON solo números
+```
+
+Esta función distingue entre mayúsculas y minúsculas. Para que no realice eso debemos de añadir **i** al final del patrón, esto no afecta a las clases [::]
+
+```PHP
+$cad = "aaAA";
+$patron1 = "/^[a-z]+$/";
+$patron2 = "/^[a-z]+$/i";
+
+if (preg_match($patron1, $cad)) {
+    echo "La cadena $cad solo tiene MINÚSCULAS". "\n";
+} else {
+    echo "La cadena $cad NO solo tiene MINÚSCULAS". "\n";
+}
+
+if (preg_match($patron2, $cad)) {
+    echo "La cadena $cad tiene MINÚSCULAS o MAYÚSCULAS". "\n";
+} else {
+    echo "La cadena $cad NO tiene MINÚSCULAS o MAYÚSCULAS". "\n";
+}
+// La cadena aaAA NO solo tiene MINÚSCULAS
+// La cadena aaAA tiene MINÚSCULAS o MAYÚSCULAS
+```
+
+Ahora utilizando el argumento opcional `$desplazamiento`:
+
+```php
+$cad = "Esta es una cadena de prueba";
+$patron = "/es/i";
+$encontrado = preg_match_all($patron, $cad, $coincidencia, PREG_OFFSET_CAPTURE);
+if($encontrado){
+    print_r($coincidencia)."\n";
+    echo "Se han encontrado coincidencias.\n";
+    foreach ($coincidencia[0] as $coincide){
+        echo "Cadena: $coincide[0] - Posición: $coincide[1]"."\n";
+    }
+}else{
+    echo "NO se han encontrado coincidencias\n";
+}
+// Array
+// (
+//     [0] => Array
+//         (
+//             [0] => Array
+//                 (
+//                     [0] => Es
+//                     [1] => 0
+//                 )
+//             [1] => Array
+//                 (
+//                     [0] => es
+//                     [1] => 5
+//                 )
+//         )
+// )
+// Se han encontrado coincidencias.
+// Cadena: Es - Posición: 0
+// Cadena: es - Posición: 5
+```
