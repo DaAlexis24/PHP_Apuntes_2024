@@ -270,4 +270,26 @@ Funciona a la hora de comprobar si todos los caracteres de una cadena son de un 
 - **_ctype_space($value)_**: Verifica si los datos cuentan con espacios en blanco.
 - **_ctype_xdigit($value)_**: Verifica si los datos cuentan con dígitos hexadecimales.
 
+En la siguiente [página](./samples/verification/verification.html "Ejemplo de una función ctype_") veremos como se aplica esta función.
+
 ### Funciones filter\_
+
+Se crearon como una extensión PCL en PHP 5.2. La sintaxis más simple es: `filter_var($var)[$filtro[$opciones]]`, esta devuelve los datos filtrados o **false** si es que el filtro falla.
+
+- **FILTER_VALIDATE_INT**: Filtra si el dato es un número entero.
+- **FILTER_VALIDATE_BOOLEAN**: Filtra si el dato es una expresión booleana.
+- **FILTER_VALIDATE_FLOAT**: Filtra si el dato es un _float_
+- **FILTER_VALIDATE_REGEXP**: Filtra si el dato es una expresión regular.
+- **FILTER_VALIDATE_URL**: Filtra si el dato es una URL.
+- **FILTER_VALIDATE_EMAIL**: Filtra si el dato es una dirección de email.
+- **FILTER_VALIDATE_IP**: Filtra si el dato ingresado es una dirección IP.
+- **FILTER_VALIDATE_MAC**: Filtra si el dato es una dirección MAC física.
+
+> Los filtros INT y FLOAT no reconocen el número cero como un entero, así que no es tan efectivo a la hora de detectar números.
+
+En la siguiente [página](./samples/verification/verification.html "Ejemplo de una función filter_") veremos como se aplica esta función.
+
+### Funciones \_exists()
+
+- **_function_exists()_**: Devuelve si la función existe o no. Es útil a la hora de verificar si alguna de las funciones que queremos utilizar sigue siendo parte del estándar o no.
+- **_array_key_exists($key, $exists)_**: Se devuelve si el elemento evaluado pertenece a la matriz. Su equivalente es la función `isset()`.
