@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FORMULARIOS - Sample</title>
+  </head>
+  <body>
+    <h1>FORMULARIOS</h1>
+    <p>
+      Vamos a ver distintos ejemplos de formularios y su interacción con PHP
+    </p>
+    <br />
+    <form action="./actions/sample.php">
+      Nombre: <input type="text" name="nombre" />
+      <input type="submit" value="Enviar" />
+    </form>
+    <br />
+    <form method="get" action="./actions/isset-sample.php">
+      Deseo recibir información: <input type="checkbox" name="acepto" />
+      <input type="submit" value="Enviar" />
+    </form>
+    <br />
+    <p>Formulario que usa otras variables:</p>
+    <form method="post" action="./actions/uso-variables-form.php">
+      Ingresa tu nacionalidad: <input type="text" name="nacionalidad" />
+      <input type="submit" value="Enviar" />
+    </form>
+    <p>Formulario que usa htmlspecialchars:</p>
+    <form method="post" action="./actions/salida-datos.php">
+      Ingresa el nombre de tu empresa: <input type="text" name="empresa" />
+      <input type="submit" value="Enviar" />
+    </form>
+    <h2>FUNCIÓN PARA RECOGER LOS DATOS:</h2>
+    <form action="./actions/function-get.php" method="post">
+      Ingrese una verdura: <input type="text" name="fruta" />
+      <input type="submit" value="Enviar" />
+    </form>
+    <h2>FUNCIÓN PARA RECOGER VARIOS DATOS:</h2>
+    <form action="./actions/function-get-array.php" method="get">
+      Dime tu nombre: <input type="text" name="personalData[1]" />
+      Dime tu apellido:
+      <input type="text" name="personalData[2]" />
+      <input type="submit" value="Enviar" />
+    </form>
+  </body>
+</html>
